@@ -9,8 +9,6 @@ type Child = {
     birthCertificate: File | null
 }
 
-type RegistrationFormProps = {}
-
 const OBJECTS = [
     "Gravity",
     "Meridian",
@@ -20,7 +18,7 @@ const OBJECTS = [
     "Vogue"
 ]
 
-export default function RegistrationForm(props: RegistrationFormProps) {
+export default function RegistrationForm() {
     const [children, setChildren] = useState<Child[]>([])
     const [childrenCount, setChildrenCount] = useState<number>(0)
     const [selectedObjects, setSelectedObjects] = useState<string[]>([])
