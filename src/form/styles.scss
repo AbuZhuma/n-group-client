@@ -1,0 +1,245 @@
+@import "../App.scss";
+
+.registration-form {
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.332);
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.success{
+    color: green;
+    font-size: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    input {
+        padding: 8px 14px;
+        border-radius: 12px;
+        border: 1px solid #d9d9d9;
+        font-size: 15px;
+        transition: 0.2s;
+        width: 100%;
+
+        &:focus {
+            border-color: $primary;
+            box-shadow: 0 0 0 3px rgba(42, 109, 244, 0.15);
+            outline: none;
+        }
+    }
+}
+
+.object-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.object-card {
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid #dcdcdc;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.2s;
+    font-weight: 500;
+    background: #fafafa;
+    font-size: 14px;
+
+    &:hover {
+        border-color: $primary;
+    }
+
+    &.active {
+        background: $primary;
+        color: white;
+        border-color: $primary;
+        box-shadow: 0 8px 20px rgba(42, 109, 244, 0.25);
+    }
+}
+
+/* ---------- SELECTED TAGS ---------- */
+.selected-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.tag {
+    background: rgba(42, 109, 244, 0.1);
+    color: $primary;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.child-block {
+    background: #f9fbff;
+    border-top: 1px solid #e6ecff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h3 {    
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+}
+
+.btns {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.add-child-btn {
+    background: #eef3ff;
+    border: 2px dashed $primary;
+    padding: 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 500;
+
+    &:hover {
+        background: rgba(42, 109, 244, 0.1);
+    }
+}
+
+.submit-btn {
+    background: $primary;
+    color: #fff;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        background: darken($primary, 8%);
+    }
+}
+
+/* ---------- SHAREHOLDER TOGGLE ---------- */
+.shareholder-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.toggle-card {
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid #dcdcdc;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    background: #fafafa;
+    transition: 0.2s;
+
+    &:hover {
+        border-color: $primary;
+    }
+
+    &.active {
+        background: $primary;
+        color: white;
+        border-color: $primary;
+        box-shadow: 0 6px 18px rgba(42, 109, 244, 0.25);
+    }
+}
+
+/* ---------- HINT & ERROR ---------- */
+.hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.error {
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .btns {
+        flex-direction: column;
+    }
+    .registration-form{
+        width: 100%;
+    }
+
+    .form-group {
+        gap: 6px;
+
+        label {
+            font-size: 13px;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+    }
+
+    .object-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .object-card {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .shareholder-toggle {
+        grid-template-columns: 1fr;
+    }
+
+    .toggle-card {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .child-block {
+        padding: 14px;
+
+        h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .tag {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .add-child-btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        padding: 14px;
+        font-size: 15px;
+    }
+}
