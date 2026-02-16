@@ -151,6 +151,7 @@ export default function RegistrationForm() {
             <div className="form-group">
                 <label>Телефон (WhatsApp)</label>
                 <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <p>На сайте <a href="kassir.kg">kassir.kg</a> в личном кабинете вы найдете свои билеты после модерации ваших данных.</p>
                 {errors.phone && <span className="error">{errors.phone}</span>}
             </div>
 

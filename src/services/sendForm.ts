@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "https://gn.kassir.kg"
+const API_URL = "https://gn.kassir.kg/api"
 
 export const sendForm = async (data: FormData) => {
     try {
