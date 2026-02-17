@@ -243,3 +243,36 @@
         font-size: 15px;
     }
 }
+/* ---------- CONSENT BLOCK ---------- */
+
+.consent-block {
+    margin-top: 10px;
+    padding: 16px;
+    background: #f4f7ff;
+    border-radius: 14px;
+    border: 1px solid rgba(42, 109, 244, 0.2);
+}
+
+.consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.consent-label input {
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+    accent-color: $primary;
+    cursor: pointer;
+}
+.disabled{
+    cursor: none;
+    background: grey;
+}
+.disabled:hover{
+    background: grey;
+}

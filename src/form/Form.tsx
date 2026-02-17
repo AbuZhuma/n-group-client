@@ -24,10 +24,12 @@ export default function RegistrationForm() {
     const [selectedObjects, setSelectedObjects] = useState<string[]>([])
     const [isShareholder, setIsShareholder] = useState<boolean>(true)
     const [fullName, setFullName] = useState("")
+    const [email, setEMail] = useState("")
     const [phone, setPhone] = useState("")
     const [contractNumber, setContractNumber] = useState("")
     const [totalChildren, setTotalChildren] = useState<number>(0)
     const [errors, setErrors] = useState<Record<string, string>>({})
+    const [consent, setConsent] = useState(false)
 
     const toggleObject = (object: string) => {
         setSelectedObjects((prev) =>
@@ -47,6 +49,8 @@ export default function RegistrationForm() {
         setContractNumber("")
         setTotalChildren(0)
         setErrors({})
+        setEMail("")
+        setConsent(false)
     }
 
     const handleChildrenCountChange = (count: number) => {
@@ -79,6 +83,13 @@ export default function RegistrationForm() {
             newErrors.phone = "Введите телефон"
         } else if (!/^\+?\d{9,15}$/.test(phone)) {
             newErrors.phone = "Некорректный номер телефона"
+        }
+        if (!consent) {
+            newErrors.consent = "Необходимо дать согласие"
+        }
+
+        if (!email.trim()) {
+            newErrors.email = "Введите почту"
         }
 
         if (!isShareholder) newErrors.isShareholder = "Выберите вариант"
@@ -129,11 +140,12 @@ export default function RegistrationForm() {
             children_total: totalChildren,
             children_coming: childrenCount,
             children: childrens,
-            consent: true
-        }   
+            consent: true,
+            email: email
+        }
         formData.append("payload", JSON.stringify(payload))
         const res = await sendForm(formData)
-        if(res){
+        if (res) {
             toast.success("Заявка отправлена!")
             clear()
         }
@@ -147,14 +159,17 @@ export default function RegistrationForm() {
                 <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
                 {errors.fullName && <span className="error">{errors.fullName}</span>}
             </div>
-
+            <div className="form-group">
+                <label>Почта</label>
+                <input type="text" value={email} onChange={(e) => setEMail(e.target.value)} />
+                {errors.email && <span className="error">{errors.email}</span>}
+            </div>
             <div className="form-group">
                 <label>Телефон (WhatsApp)</label>
                 <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 <p>На сайте <a href="kassir.kg">kassir.kg</a> в личном кабинете вы найдете свои билеты после модерации ваших данных.</p>
                 {errors.phone && <span className="error">{errors.phone}</span>}
             </div>
-
             <div className="form-group">
                 <label>Вы являетесь дольщиком N Group?</label>
                 <div className="shareholder-toggle">
@@ -210,13 +225,33 @@ export default function RegistrationForm() {
             </div>
 
             <div className="form-group">
-                <label>Сколько детей придут 1 марта?</label>
+                <label>Сколько детей придут 27 февраля?</label>
                 <input
                     type="text"
                     value={childrenCount}
                     onChange={(e) => handleChildrenCountChange(+e.target.value)}
                 />
                 {errors.childrenCount && <span className="error">{errors.childrenCount}</span>}
+            </div>
+            <p>{`*Допуск на мероприятие предусмотрен только для родных детей долевого
+            участника. Участие детей третьих лиц, включая родственников
+            (племянников, братьев, сестёр и др.), не допускается.`}</p>
+            <p>{`*Обязательно добавьте ниже каждого ребенка, гости без регистрации и свидетельств о рождении к мероприятию допущены не будут`}</p>
+            <div className="consent-block">
+                <label className="consent-label">
+                    <input
+                        type="checkbox"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
+                    />
+                    <span>
+                        Даю согласие на обработку персональных данных для участия в конкурсе,
+                        на участие в съемках для платформ компании N Group и на публикацию
+                        и использование материалов с моим участием на официальных
+                        информационных ресурсах Компании*
+                    </span>
+                </label>
+                {errors.consent && <span className="error">{errors.consent}</span>}
             </div>
 
             {children.map((child, index) => (
@@ -266,7 +301,7 @@ export default function RegistrationForm() {
                     + Добавить ребенка
                 </button>
 
-                <button type="button" className="submit-btn" onClick={handleSubmit}>
+                <button type="button" className={`submit-btn ${!consent ? "disabled" : ""}`} onClick={handleSubmit}>
                     Отправить заявку
                 </button>
             </div>
