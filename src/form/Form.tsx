@@ -150,6 +150,36 @@ export default function RegistrationForm() {
             clear()
         }
     }
+    const removeChild = (index: number) => {
+        const updatedChildren = children.filter((_, i) => i !== index)
+        setChildren(updatedChildren)
+        setChildrenCount(updatedChildren.length)
+
+        // Пересобираем ошибки без удаленного ребенка
+        const newErrors: Record<string, string> = {}
+
+        Object.entries(errors).forEach(([key, value]) => {
+            const match = key.match(/child_(fullName|age|file)_(\d+)/)
+
+            if (!match) {
+                newErrors[key] = value
+                return
+            }
+
+            const errorIndex = Number(match[2])
+
+            if (errorIndex === index) return // удаляем ошибки выбранного ребенка
+
+            // если индекс больше удаленного — уменьшаем на 1
+            const newIndex = errorIndex > index ? errorIndex - 1 : errorIndex
+            const newKey = `child_${match[1]}_${newIndex}`
+
+            newErrors[newKey] = value
+        })
+
+        setErrors(newErrors)
+    }
+
 
     return (
         <div className="registration-form">
@@ -294,6 +324,14 @@ export default function RegistrationForm() {
                             <span className="error">{errors[`child_file_${index}`]}</span>
                         )}
                     </div>
+                    <button
+                        type="button"
+                        className="add-child-btn"
+                        onClick={() => removeChild(index)}
+                    >
+                        Удалить ребенка
+                    </button>
+
                 </div>
             ))}
             <div className="btns">
